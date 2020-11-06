@@ -1,0 +1,29 @@
+.button {
+    background-color: #1c87c9;
+    border: none;
+    color: white;
+    padding: 20px 34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .Jungle {
+    /* font-family: jungleFont;
+    src: url(resources\css\heavy_dock11.otf) format("opentype"); */
+    font-family: 'Press Start 2P', cursive;
+    color: red;
+    text-align: center;
+  }
+
+  body{
+    background-image: url("/resources/img/junglebackground.jpg");
+  }
+
+  table, td, th{
+    background-color: white;
+    border: 2px solid black;
+  }
