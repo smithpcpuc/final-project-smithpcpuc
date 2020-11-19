@@ -4,11 +4,12 @@ const tutorialPage = document.getElementById("tutorial-page");
 const aboutPage = document.getElementById("about-page");
 const tutorialBtn = document.getElementById("tutorialBtn");
 const aboutBtn = document.getElementById('aboutBtn');
-const backBtn = document.getElementById('backBtn');
+const tutorialBackBtn = document.getElementById('tutorialBackBtn');
+const aboutBackBtn = document.getElementById('aboutBackBtn');
 
 
 //Event
-backBtn.addEventListener('click', function(){
+tutorialBackBtn.addEventListener('click', function(){
     titlePage.style.display = "block";
     tutorialPage.style.display = "none";
     aboutPage.style.display = "none";
@@ -17,6 +18,12 @@ backBtn.addEventListener('click', function(){
 tutorialBtn.addEventListener('click', function(){
     titlePage.style.display = "none";
     tutorialPage.style.display = "block";
+    aboutPage.style.display = "none";
+});
+
+aboutBackBtn.addEventListener('click', function(){
+    titlePage.style.display = "block";
+    tutorialPage.style.display = "none";
     aboutPage.style.display = "none";
 });
 

@@ -13,7 +13,7 @@ var game = new JungleGame.Game(config);
 
 function preload ()
 {
-    this.load.image('jungle', 'assets/junglebackground.png');
+    this.load.image('jungle', 'assets/junglebackground.jpg');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('bomb', 'assets/bomb.png');

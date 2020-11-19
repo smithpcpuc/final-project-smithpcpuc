@@ -1,5 +1,6 @@
 .button {
     background-color: #1c87c9;
+    border-radius: 25px;
     border: none;
     color: white;
     padding: 20px 34px;
@@ -43,6 +44,7 @@
 
   .mainBtn {
     background-color: #1c87c9;
+    border-radius: 25px;
     border: none;
     color: white;
     padding: 20px 34px;
