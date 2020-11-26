@@ -30,7 +30,9 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('sky', 'resources/img/junglebackground.png');
-    this.load.image('ground', 'resources/img/jungleplatform.png');
+    this.load.image('ground', 'resources/img/junglefloor.png');
+    this.load.image('ledge', 'resources/img/jungleplatform.png');
+    this.load.image('wall', 'resources/img/junglewall.png');
     this.load.image('star', 'resources/img/CoinAnimation.gif');
     this.load.image('bomb', 'resources/img/Monkey.gif');
     this.load.spritesheet('guy', 'resources/img/JungleGuy-v3.png', { frameWidth: 100, frameHeight: 92 });
@@ -46,15 +48,17 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 568, 'ground').setScale(1).refreshBody();
+    platforms.create(400, 568, 'ground').setScale(4).refreshBody();
 
     //  Now let's create some ledges
-    platforms.create(600, 400, 'ground').setScale(.55).refreshBody();
-    platforms.create(50, 250, 'ground').setScale(.55).refreshBody();
-    platforms.create(750, 220, 'ground').setScale(.55).refreshBody();
+    platforms.create(600, 390, 'ledge').setScale(.50).refreshBody();
+    platforms.create(50, 250, 'ledge').setScale(.50).refreshBody();
+    platforms.create(750, 220, 'ledge').setScale(.55).refreshBody();
+
+    platforms.create(750, 535, 'wall').setScale(3.5).refreshBody();
 
     // The player and its settings
-    player = this.physics.add.sprite(100, 450, 'guy');
+    player = this.physics.add.sprite(100, 450, 'guy').setScale(.85).refreshBody();
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.setBounce(0.2);
@@ -96,13 +100,12 @@ function create ()
 
         //  Give each star a slightly different bounce
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
     });
 
     bombs = this.physics.add.group();
 
     //  The score
-    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = this.add.text(16, 16, 'SCORE: 0', { fontSize: '32px', fill: '#ff0000' });
 
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);
