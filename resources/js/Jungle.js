@@ -76,13 +76,13 @@ function create ()
 }
 
     //  Input Events
-   // this.cursors = this.input.keyboard.createCursorKeys();
+   cursors = game.input.keyboard.createCursorKeys();
 
     
 
     //  Some coins to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     
-    /*coins = this.physics.add.staticGroup({
+    coins = this.physics.add.group({
         key: 'coin',
         repeat: 11,
         setXY: { x: 12, y: 0, stepX: 70 }
@@ -93,12 +93,12 @@ function create ()
         //  Give each coin a slightly different bounce
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
-    });*/
+    });
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(coins, platforms);
 
-    this.physics.add.overlap(player, coins, collectCoin, null, this);
+    //this.physics.add.overlap(player, coins, collectCoin, null, this);
 
 function update ()
 {
