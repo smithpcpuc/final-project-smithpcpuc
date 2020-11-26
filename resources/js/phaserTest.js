@@ -188,3 +188,8 @@ function hitBomb (player, bomb)
 
     gameOver = true;
 }
+
+function nextLevel()
+{
+    
+}
