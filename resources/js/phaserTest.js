@@ -33,6 +33,7 @@ function preload ()
     this.load.image('ground', 'resources/img/junglefloor.png');
     this.load.image('ledge', 'resources/img/jungleplatform.png');
     this.load.image('wall', 'resources/img/junglewall.png');
+    this.load.image('lvlBound', 'resources/img/levelBoundary.png');
     this.load.image('star', 'resources/img/CoinAnimation.gif');
     this.load.image('bomb', 'resources/img/Monkey.gif');
     this.load.spritesheet('guy', 'resources/img/JungleGuy-v3.png', { frameWidth: 100, frameHeight: 92 });
@@ -56,6 +57,10 @@ function create ()
     platforms.create(750, 220, 'ledge').setScale(.55).refreshBody();
 
     platforms.create(750, 535, 'wall').setScale(3.5).refreshBody();
+
+    //Level Boundary
+    platforms.create(800, 80, 'lvlBound').setScale(5).refreshBody();
+
 
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'guy').setScale(.85).refreshBody();
@@ -116,6 +121,8 @@ function create ()
     this.physics.add.overlap(player, stars, collectStar, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+    this.physics.add.collider(player, nextLevel, null, this);
 }
 
 function update ()
@@ -136,6 +143,8 @@ function update ()
         player.setVelocityX(160);
 
         player.anims.play('right', true);
+
+        console.log(player.body.x);
     }
     else
     {
@@ -147,6 +156,11 @@ function update ()
     if (cursors.up.isDown && player.body.touching.down)
     {
         player.setVelocityY(-330);
+    }
+
+    if (player.body.blocked.right && player.body.x == 665)
+    {
+        alert("Next Level");
     }
 }
 
@@ -189,7 +203,10 @@ function hitBomb (player, bomb)
     gameOver = true;
 }
 
-function nextLevel()
+function nextLevel(player)
 {
-    
+    if(player.blocked.right)
+    {
+        alert("Blocked");
+    }
 }
