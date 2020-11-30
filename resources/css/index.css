@@ -42,6 +42,10 @@
     display: none;
   }
 
+  #level-page {
+    display: none;
+  }
+
   .mainBtn {
     background-color: transparent;
     border-radius: 25px;
