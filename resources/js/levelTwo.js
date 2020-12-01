@@ -160,7 +160,7 @@ function update ()
 
     if (player.body.blocked.right && player.body.x == 665)
     {
-        alert("Next Level");
+        open("LevelThree.html", "_self");
     }
 }
 
