@@ -24,12 +24,13 @@ var cursors;
 var score = 0;
 var gameOver = false;
 var scoreText;
+var pit;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('sky', 'resources/img/junglebackground.png');
+    this.load.image('sky', 'resources/img/swamp.png');
     this.load.image('ground', 'resources/img/junglefloor.png');
     this.load.image('ledge', 'resources/img/jungleplatform.png');
     this.load.image('wall', 'resources/img/junglewall.png');
@@ -49,17 +50,18 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 568, 'ground').setScale(4).refreshBody();
+    platforms.create(70, 580, 'ground').setScale(1).refreshBody();
+    platforms.create(400, 500, 'ground').setScale(1).refreshBody();
+    platforms.create(725, 580, 'ground').setScale(1).refreshBody();
 
     //  Now let's create some ledges
-    platforms.create(600, 390, 'ledge').setScale(.50).refreshBody();
-    platforms.create(50, 250, 'ledge').setScale(.50).refreshBody();
-    platforms.create(750, 220, 'ledge').setScale(.55).refreshBody();
+    //platforms.create(600, 390, 'ledge').setScale(.50).refreshBody();
 
-    platforms.create(750, 535, 'wall').setScale(3.5).refreshBody();
+    platforms.create(800, 335, 'wall').setScale(3.5).refreshBody();
+    platforms.create(10, 335, 'wall').setScale(3.5).refreshBody();
 
     //Level Boundary
-    platforms.create(800, 80, 'lvlBound').setScale(5).refreshBody();
+    //platforms.create(800, 80, 'lvlBound').setScale(5).refreshBody();
 
 
     // The player and its settings
@@ -97,14 +99,14 @@ function create ()
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
         key: 'star',
-        repeat: 10,
-        setXY: { x: 12, y: 0, stepX: 70 }
+        repeat: 5,
+        setXY: { x: 200, y: 0, stepX: 70 }
     });
 
     stars.children.iterate(function (child) {
 
         //  Give each star a slightly different bounce
-        //child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.4));
     });
 
     bombs = this.physics.add.group();
@@ -160,9 +162,9 @@ function update ()
 
     if (player.body.blocked.right && player.body.x == 665)
     {
-        //alert("Next Level");
-        open("LevelTwo.html", "_self");
+        alert("Next Level");
     }
+
 }
 
 function collectStar (player, star)
@@ -189,7 +191,6 @@ function collectStar (player, star)
         bomb.setCollideWorldBounds(true);
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
         bomb.allowGravity = false;
-
     }
 }
 
