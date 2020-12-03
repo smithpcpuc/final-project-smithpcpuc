@@ -172,7 +172,7 @@ function collectStar (player, star)
     //  Add and update the score
     score += 10;
     scoreText.setText('Score: ' + score);
-
+    localStorage.setItem('key', JSON.stringify(score));
     if (stars.countActive(true) === 0)
     {
         //  A new batch of stars to collect
@@ -202,6 +202,8 @@ function hitBomb (player, bomb)
     player.anims.play('turn');
 
     gameOver = true;
+
+    alert("Game Over");
 }
 
 function nextLevel(player)
