@@ -161,7 +161,7 @@ function update ()
 
         player.anims.play('right', true);
 
-        if (spaceBar.isUp)
+        if (spaceBar.isDown)
     {
         bullets.create(player.body.x, player.body.y, 'bullet').setScale(5).refreshBody;
         bullets.setVelocityX(200);
