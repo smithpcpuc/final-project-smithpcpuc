@@ -176,6 +176,8 @@ function update ()
         gameOver = true;
 
         alert("Game Over");
+
+        location.reload();
     }
 
 }

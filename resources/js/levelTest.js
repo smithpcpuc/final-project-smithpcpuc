@@ -69,7 +69,7 @@ function create ()
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
+    player.setCollideWorldBounds(false);
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
@@ -146,7 +146,7 @@ function update ()
 
         player.anims.play('right', true);
 
-        console.log(player.body.x);
+        console.log(player.body.y);
     }
     else
     {
@@ -160,9 +160,9 @@ function update ()
         player.setVelocityY(-330);
     }
 
-    if (player.body.blocked.right && player.body.x == 665)
+    if (player.body.y > 800)
     {
-        alert("Next Level");
+        alert("Game Over");
     }
 
 }
