@@ -25,6 +25,8 @@ var score = 0;
 var gameOver = false;
 var scoreText;
 var pit;
+var weapon;
+var fireButton;
 
 var game = new Phaser.Game(config);
 
@@ -38,6 +40,7 @@ function preload ()
     this.load.image('star', 'resources/img/CoinAnimation.gif');
     this.load.image('bomb', 'resources/img/Monkey.gif');
     this.load.spritesheet('guy', 'resources/img/JungleGuy-v3.png', { frameWidth: 100, frameHeight: 92 });
+    this.load.image('bullet', 'resources/img/bullet.png');
 }
 
 function create ()
@@ -69,7 +72,7 @@ function create ()
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.setBounce(0.2);
-    player.setCollideWorldBounds(false);
+    player.setCollideWorldBounds(true);
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
@@ -125,6 +128,21 @@ function create ()
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
     this.physics.add.collider(player, nextLevel, null, this);
+
+
+    //weapon
+    weapon = game.add.weapon(1, 'bullet');
+    weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+
+    weapon.bulletAngleOffset = 90;
+
+    weapon.bulletSpeed = 400;
+
+    this.physics.arcade.enable(player);
+
+    weapon.trackSprite(player, 14, 0);
+
+    fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 }
 
 function update ()
@@ -163,6 +181,11 @@ function update ()
     if (player.body.y > 800)
     {
         alert("Game Over");
+    }
+
+    if (fireButton.isDown)
+    {
+        weapon.fire();
     }
 
 }
@@ -212,3 +235,9 @@ function nextLevel(player)
         alert("Blocked");
     }
 }
+/*
+function render() {
+
+    weapon.debug();
+
+}*/
