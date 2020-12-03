@@ -25,7 +25,8 @@ var score = 0;
 var gameOver = false;
 var scoreText;
 var pit;
-var bullets;
+var leftBullets;
+var rightBullets;
 var spaceBar;
 
 var game = new Phaser.Game(config);
@@ -113,7 +114,9 @@ function create ()
 
     bombs = this.physics.add.group();
 
-    bullets = this.physics.add.group();
+    leftBullets = this.physics.add.group();
+
+    rightBullets = this.physics.add.group();
 
     //  The score
     scoreText = this.add.text(16, 16, 'SCORE: 0', { fontSize: '32px', fill: '#ff0000' });
@@ -128,9 +131,9 @@ function create ()
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
-    this.physics.add.collider(bullets, bombs, killBomb, null, this);
+    this.physics.add.collider(leftBullets, rightBullets, bombs, killBomb, null, this);
 
-    this.physics.add.collider(bullets, platforms, killBullet, null, this);
+    this.physics.add.collider(leftBullets, rightBullets, platforms, killBullet, null, this);
 }
 
 function update ()
@@ -148,9 +151,9 @@ function update ()
 
         if (spaceBar.isDown)
     {
-        bullets.create(player.body.x, player.body.y, 'bullet').setScale(5).refreshBody;
-        bullets.setVelocityX(-200);
-        bullets.setVelocityY(0)
+        leftBullets.create(parseInt(player.body.x), parseInt(player.body.y), 'bullet').setScale(5).refreshBody;
+        leftBullets.setVelocityX(-200);
+        leftBullets.setVelocityY(0)
     }
 
     }
@@ -160,18 +163,13 @@ function update ()
 
         player.anims.play('right', true);
 
-        if (spaceBar.isUp)
+        if (spaceBar.isDown)
     {
-        bullets.create(player.body.x, player.body.y, 'bullet').setScale(5).refreshBody;
-        bullets.setVelocityX(200);
-        bullets.setVelocityY(0)
+        rightBullets.create(parseInt(player.body.x), parseInt(player.body.y), 'bullet').setScale(5).refreshBody;
+        rightBullets.setVelocityX(200);
+        rightBullets.setVelocityY(0)
     }
-    else
-    {
-        bullets.setVelocityY(0);
-    }
-
-        //console.log(player.body.y);
+            console.log(player.body.x);
     }
     else
     {
@@ -229,14 +227,15 @@ function hitBomb (player, bomb)
     gameOver = true;
 }
 
-function killBomb (bullet, bomb)
+function killBomb (leftBullets, rightBullets, bombs)
 {
-    bomb.disableBody(true, true);
-    bullet.disableBody(true, true);
-
+    bombs.disableBody(true, true);
+    leftBullets.disableBody(true, true);
+    rightBullets.disableBody(true, true);
 }
 
-function killBullet (bullet)
+function killBullet (leftBullets, rightBullets, platforms)
 {
-    bullet.disableBody(true, true);
+    leftBullets.disableBody(true, true);
+    rightBullets.disableBody(true, true);
 }
