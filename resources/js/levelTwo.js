@@ -24,11 +24,14 @@ var cursors;
 var score = JSON.parse(localStorage.getItem('key'));
 var gameOver = false;
 var scoreText;
+var bullets;
+var spaceBar;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('bullet', 'resources/img/bullet.png');
     this.load.image('sky', 'resources/img/junglebackground.png');
     this.load.image('ground', 'resources/img/junglefloor.png');
     this.load.image('ledge', 'resources/img/jungleplatform.png');
@@ -36,7 +39,7 @@ function preload ()
     this.load.image('lvlBound', 'resources/img/levelBoundary.png');
     this.load.image('star', 'resources/img/CoinAnimation.gif');
     this.load.image('bomb', 'resources/img/Monkey.gif');
-    this.load.spritesheet('guy', 'resources/img/JungleGuy-v3.png', { frameWidth: 100, frameHeight: 92 });
+    this.load.spritesheet('guy', 'resources/img/JungleGuy-v5.png', { frameWidth: 120, frameHeight: 92 });
 }
 
 function create ()
@@ -120,6 +123,8 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
+    spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
         key: 'star',
@@ -135,6 +140,8 @@ function create ()
 
     bombs = this.physics.add.group();
 
+    bullets = this.physics.add.group();
+
     //  The score
     scoreText = this.add.text(16, 16, 'SCORE: ' + score, { fontSize: '32px', fill: '#ff0000' });
 
@@ -148,7 +155,9 @@ function create ()
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
-    this.physics.add.collider(player, nextLevel, null, this);
+    this.physics.add.collider(bullets, bombs, killBomb, null, this);
+
+    this.physics.add.collider(bullets, platforms, killBullet, null, this);
 }
 
 function update ()
@@ -163,12 +172,31 @@ function update ()
         player.setVelocityX(-160);
 
         player.anims.play('left', true);
+
+        if (spaceBar.isDown)
+    {
+        bullets.create(player.body.x, player.body.y, 'bullet').setScale(5).refreshBody;
+        bullets.setVelocityX(-200);
+        bullets.setVelocityY(0)
+    }
+
     }
     else if (cursors.right.isDown)
     {
         player.setVelocityX(160);
 
         player.anims.play('right', true);
+
+        if (spaceBar.isUp)
+    {
+        bullets.create(player.body.x, player.body.y, 'bullet').setScale(5).refreshBody;
+        bullets.setVelocityX(200);
+        bullets.setVelocityY(0)
+    }
+    else
+    {
+        bullets.setVelocityY(0);
+    }
 
         console.log(player.body.x);
     }
@@ -184,7 +212,12 @@ function update ()
         player.setVelocityY(-330);
     }
 
-    if (player.body.blocked.right && player.body.x == 695)
+    if (player.body.y > 800)
+    {
+        alert("Game Over");
+    }  
+
+    if (player.body.blocked.right && player.body.x == 678)
     {
         open("LevelThree.html", "_self");
     }
@@ -229,10 +262,14 @@ function hitBomb (player, bomb)
     gameOver = true;
 }
 
-function nextLevel(player)
+function killBomb (bullet, bomb)
 {
-    if(player.blocked.right)
-    {
-        alert("Blocked");
-    }
+    bomb.disableBody(true, true);
+    bullet.disableBody(true, true);
+
+}
+
+function killBullet (bullet)
+{
+    bullet.disableBody(true, true);
 }

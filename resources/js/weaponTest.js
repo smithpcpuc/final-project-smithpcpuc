@@ -21,7 +21,7 @@ var stars;
 var bombs;
 var platforms;
 var cursors;
-var score = JSON.parse(localStorage.getItem('key'));
+var score = 0;
 var gameOver = false;
 var scoreText;
 var pit;
@@ -53,9 +53,7 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(70, 580, 'ground').setScale(1).refreshBody();
-    platforms.create(400, 500, 'ground').setScale(1).refreshBody();
-    platforms.create(725, 580, 'ground').setScale(1).refreshBody();
+    platforms.create(400, 568, 'ground').setScale(4).refreshBody();
 
     //  Now let's create some ledges
     //platforms.create(600, 390, 'ledge').setScale(.50).refreshBody();
@@ -66,13 +64,12 @@ function create ()
     //Level Boundary
     //platforms.create(800, 80, 'lvlBound').setScale(5).refreshBody();
 
-
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'guy').setScale(.85).refreshBody();
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.setBounce(0.2);
-    player.setCollideWorldBounds(false);
+    player.setCollideWorldBounds(true);
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
@@ -84,7 +81,6 @@ function create ()
 
     this.anims.create({
         key: 'turn',
-        //frames: this.anims.generateFrameNumbers('guy', { start: 0, end: 3 }),
         frames: [ { key: 'guy', frame: 4 } ],
         frameRate: 20
     });
@@ -100,6 +96,7 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
 
     spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
 
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
@@ -119,7 +116,7 @@ function create ()
     bullets = this.physics.add.group();
 
     //  The score
-    scoreText = this.add.text(16, 16, 'SCORE: ' + score, { fontSize: '32px', fill: '#ff0000' });
+    scoreText = this.add.text(16, 16, 'SCORE: 0', { fontSize: '32px', fill: '#ff0000' });
 
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);
@@ -190,17 +187,8 @@ function update ()
 
     if (player.body.y > 800)
     {
-        this.physics.pause();
-
-        player.setTint(0xff0000);
-
-        player.anims.play('turn');
-
-        gameOver = true;
-
         alert("Game Over");
-    }
-
+    }  
 }
 
 function collectStar (player, star)

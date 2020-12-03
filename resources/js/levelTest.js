@@ -186,6 +186,8 @@ function update ()
     if (fireButton.isDown)
     {
         weapon.fire();
+
+        weapon.debug();
     }
 
 }
