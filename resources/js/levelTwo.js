@@ -227,6 +227,8 @@ function hitBomb (player, bomb)
     player.anims.play('turn');
 
     gameOver = true;
+
+    alert("Game Over");
 }
 
 function nextLevel(player)
