@@ -1,15 +1,16 @@
 .button {
-    background-color: #1c87c9;
-    border-radius: 25px;
-    border: none;
-    color: white;
-    padding: 20px 34px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    margin: 4px 2px;
-    cursor: pointer;
+  background-color: transparent;
+  border-radius: 25px;
+  border: solid;
+  border-color:#1c87c9;
+  color: white;
+  padding: 20px 34px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
   }
 
   .Jungle {
@@ -50,7 +51,7 @@
     background-color: transparent;
     border-radius: 25px;
     border: solid;
-    border-color: red;
+    border-color:#1c87c9;
     color: white;
     padding: 20px 34px;
     text-align: center;
