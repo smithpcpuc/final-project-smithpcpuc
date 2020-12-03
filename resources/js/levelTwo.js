@@ -124,7 +124,7 @@ function create ()
     stars = this.physics.add.group({
         key: 'star',
         repeat: 11,
-        setXY: { x: 12, y: 0, stepX: 70 }
+        setXY: { x: 12, y: 0, stepX: 70}
     });
 
     stars.children.iterate(function (child) {
@@ -227,8 +227,6 @@ function hitBomb (player, bomb)
     player.anims.play('turn');
 
     gameOver = true;
-
-    alert("Game Over");
 }
 
 function nextLevel(player)
