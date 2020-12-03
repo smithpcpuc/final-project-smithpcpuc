@@ -49,17 +49,43 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 568, 'ground').setScale(4).refreshBody();
+    platforms.create(100, 600, 'ground').setScale(1).refreshBody();
+    platforms.create(301, 600, 'ground').setScale(1).refreshBody();
+    platforms.create(502, 600, 'ground').setScale(1).refreshBody();
+    platforms.create(702, 600, 'ground').setScale(1).refreshBody();
 
     //  Now let's create some ledges
-    platforms.create(600, 390, 'ledge').setScale(.50).refreshBody();
-    platforms.create(50, 250, 'ledge').setScale(.50).refreshBody();
-    platforms.create(750, 220, 'ledge').setScale(.55).refreshBody();
+    // Bottom Left
+    platforms.create(325, 450, 'ledge').setScale(.15).refreshBody();
 
-    platforms.create(750, 535, 'wall').setScale(3.5).refreshBody();
+    // Middle Left
+    platforms.create(50, 350, 'ledge').setScale(.15).refreshBody();
+
+    // Top Left
+    platforms.create(325, 250, 'ledge').setScale(.15).refreshBody();
+
+    // Top Right
+    platforms.create(475, 159, 'ledge').setScale(.15).refreshBody();
+
+    // Middle Right
+    platforms.create(740, 250, 'ledge').setScale(.15).refreshBody();
+
+    // Middle Right/Left
+    platforms.create(475, 400, 'ledge').setScale(.15).refreshBody();
+
+    //Bottom right
+
+    platforms.create(740, 490, 'ledge').setScale(.15).refreshBody();
+
+    // Top Wall
+    platforms.create(400, 250, 'wall').setScale(1).refreshBody();
+    // Middle Wall
+    platforms.create(400, 405, 'wall').setScale(1).refreshBody();
+    //Bottom Wall
+    platforms.create(400, 605, 'wall').setScale(1).refreshBody();
 
     //Level Boundary
-    platforms.create(800, 80, 'lvlBound').setScale(5).refreshBody();
+    platforms.create(800, 544, 'lvlBound').setScale(2).refreshBody();
 
 
     // The player and its settings
@@ -158,7 +184,7 @@ function update ()
         player.setVelocityY(-330);
     }
 
-    if (player.body.blocked.right && player.body.x == 665)
+    if (player.body.blocked.right && player.body.x == 695)
     {
         open("LevelThree.html", "_self");
     }
