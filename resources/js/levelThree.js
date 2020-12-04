@@ -30,8 +30,7 @@ var spaceBar;
 
 var game = new Phaser.Game(config);
 
-function preload ()
-{
+function preload(){
     this.load.image('bullet', 'resources/img/bullet.png');
     this.load.image('sky', 'resources/img/swamp.png');
     this.load.image('ground', 'resources/img/junglefloor.png');
@@ -43,8 +42,7 @@ function preload ()
     this.load.spritesheet('guy', 'resources/img/JungleGuy-v5.png', { frameWidth: 120, frameHeight: 92 });
 }
 
-function create ()
-{
+function create(){
     //  A simple background for our game
     this.add.image(400, 300, 'sky');
 
@@ -116,7 +114,7 @@ function create ()
 
     bombs = this.physics.add.group();
 
-    bullets = this.physics.add.group();
+    bullets = this.physics.add.group({allowGravity: false});
 
     //  The score
     scoreText = this.add.text(16, 16, 'SCORE: ' + score, { fontSize: '32px', fill: '#ff0000' });
@@ -136,55 +134,44 @@ function create ()
     this.physics.add.collider(bullets, platforms, killBullet, null, this);
 }
 
-function update ()
-{
-    if (gameOver)
-    {
+let last_shot = Date.now()
+
+const shoot = (direction) => {
+    console.log()
+    if(Date.now() - last_shot > 750) {
+        last_shot = Date.now()
+        direction === 'left'
+            ? bullets.create(player.body.x, player.body.y + 28, 'bullet').setScale(5).setVelocityX(-200)
+            : bullets.create(player.body.x + 100, player.body.y + 28, 'bullet').setScale(5).setVelocityX(200);
+    }
+}
+
+function update() {
+    if (gameOver) {
         return;
     }
 
-    if (cursors.left.isDown)
-    {
+    if (cursors.left.isDown) {
         player.setVelocityX(-160);
 
         player.anims.play('left', true);
 
-        if (spaceBar.isDown)
-    {
-        bullets.create(player.body.x, player.body.y, 'bullet').setScale(5).refreshBody;
-        bullets.setVelocityX(-200);
-        bullets.setVelocityY(0)
+        if (spaceBar.isDown) shoot('left')
     }
-
-    }
-    else if (cursors.right.isDown)
-    {
+    else if (cursors.right.isDown) {
         player.setVelocityX(160);
 
         player.anims.play('right', true);
 
-        if (spaceBar.isDown)
-    {
-        bullets.create(player.body.x, player.body.y, 'bullet').setScale(5).refreshBody;
-        bullets.setVelocityX(200);
-        bullets.setVelocityY(0)
+        if (spaceBar.isDown) shoot('right')
     }
-    else
-    {
-        bullets.setVelocityY(0);
-    }
-
-        //console.log(player.body.y);
-    }
-    else
-    {
+    else {
         player.setVelocityX(0);
 
         player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down)
-    {
+    if (cursors.up.isDown && player.body.touching.down) {
         player.setVelocityY(-330);
     }
 
@@ -203,16 +190,14 @@ function update ()
 
 }
 
-function collectStar (player, star)
-{
+function collectStar(player, star) {
     star.disableBody(true, true);
 
     //  Add and update the score
     score += 10;
     scoreText.setText('Score: ' + score);
-
-    if (stars.countActive(true) === 0)
-    {
+    localStorage.setItem('key', JSON.stringify(score));
+    if (stars.countActive(true) === 0) {
         //  A new batch of stars to collect
         stars.children.iterate(function (child) {
 
@@ -227,11 +212,11 @@ function collectStar (player, star)
         bomb.setCollideWorldBounds(true);
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
         bomb.allowGravity = false;
+
     }
 }
 
-function hitBomb (player, bomb)
-{
+function hitBomb(player, bomb) {
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -239,16 +224,16 @@ function hitBomb (player, bomb)
     player.anims.play('turn');
 
     gameOver = true;
+
+    alert("Game Over");
 }
 
-function killBomb (bullet, bomb)
-{
+function killBomb(bullet, bomb) {
     bomb.disableBody(true, true);
     bullet.disableBody(true, true);
 
 }
 
-function killBullet (bullet)
-{
+function killBullet(bullet) {
     bullet.disableBody(true, true);
 }
