@@ -1,8 +1,6 @@
 # final-project-smithpcpuc
 JUNGLE ADVENTURE (Amazon DeliveryBoi)
 
-
-
 Meet the team
 --------------
 Caleb Smith-Plummer 
@@ -22,3 +20,7 @@ Nicholas Lawson
 
 Link to play the game
 https://smithpcpuc.github.io/final-project-smithpcpuc/index.html
+
+
+Presentation
+https://docs.google.com/presentation/d/1spyBb6y09qDajtc9UPNfTU2mHsifiZmpQgfxQtOaf-4/edit#slide=id.p
