@@ -26,11 +26,13 @@ var gameOver = false;
 var scoreText;
 var bullets;
 var spaceBar;
+var health;
 
 var game = new Phaser.Game(config);
 
 function preload ()
 {
+    this.load.image('heart', 'resources/img/heart.gif');
     this.load.image('bullet', 'resources/img/bullet.png');
     this.load.image('sky', 'resources/img/junglebackground.png');
     this.load.image('ground', 'resources/img/junglefloor.png');
@@ -118,6 +120,9 @@ function create ()
 
     //  The score
     scoreText = this.add.text(16, 16, 'SCORE: ' + score, { fontSize: '32px', fill: '#ff0000' });
+
+    //health
+    this.add.image(250, 32, 'heart');
 
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);

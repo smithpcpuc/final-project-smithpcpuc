@@ -39,7 +39,7 @@ function preload ()
     this.load.image('wall', 'resources/img/junglewall.png');
     this.load.image('lvlBound', 'resources/img/levelBoundary.png');
     this.load.image('star', 'resources/img/CoinAnimation.gif');
-    this.load.image('bomb', 'resources/img/Monkey.gif');
+    this.load.image('bomb', 'resources/img/le leach.gif');
     this.load.spritesheet('guy', 'resources/img/JungleGuy-v5.png', { frameWidth: 120, frameHeight: 92 });
 }
 
@@ -104,8 +104,8 @@ function create ()
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
         key: 'star',
-        repeat: 5,
-        setXY: { x: 200, y: 0, stepX: 70 }
+        repeat: 2,
+        setXY: { x: 90, y: 0, stepX: 300 }
     });
 
     stars.children.iterate(function (child) {
